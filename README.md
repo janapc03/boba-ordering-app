@@ -8,3 +8,9 @@ primarily meant to be a game for people who enjoy casual
 games. Personally, I am a fan of low-intensity, chill games,
 and I love bubble tea, so I decided on this project topic
 based on my personal interests.
+
+## *User Stories*
+- As a user, I want to be able to add a drink to my order
+- As a user, I want to be able to choose the flavor, size, and toppings in my drink
+- As a user, I want to be able to view the list of drinks in my order
+- As a user, I want to be able to select a drink in my order and change an aspect of it
