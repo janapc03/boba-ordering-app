@@ -12,31 +12,31 @@ public class Order {
 
     // EFFECTS: constructs an order containing at least one drink and having an order total of the price of that drink
     public Order(Drink drink) {
-        order = new ArrayList<>();
-        order.add(drink);
+        this.order = new ArrayList<>();
+        this.order.add(drink);
         this.orderTotal = drink.getPrice();
     }
 
     // MODIFIES: this
     // EFFECTS: adds drink to the order and increases order total
     public void addDrink(Drink drink) {
-        //stub
+        this.order.add(drink);
+        this.orderTotal = this.orderTotal + drink.getPrice();
     }
 
-    // REQUIRES: given drink is in the order
     // MODIFIES: this
-    // EFFECTS: if the number of drinks in the order is > 1,
+    // EFFECTS: if the given drink is in the order and the number of drinks in the order is > 1,
     //             - removes drink from the order
     //             - decreases order total
     //             - returns true
     //           else, returns false
     public boolean removeDrink(Drink drink) {
-        return false; //stub
-    }
-
-    // EFFECTS: returns the given drink in the order
-    public Drink getDrink(Drink drink) {
-        return drink; //stub
+        if (this.order.contains(drink) && (getNumDrinks() > 1)) {
+            this.order.remove(drink);
+            this.orderTotal = this.orderTotal - drink.getPrice();
+            return true;
+        }
+        return false;
     }
 
     // EFFECTS: returns the list of drinks in the order
@@ -51,6 +51,6 @@ public class Order {
 
     // EFFECTS: returns the number of drinks in the order
     public int getNumDrinks() {
-        return 0; //stub
+        return this.order.size();
     }
 }

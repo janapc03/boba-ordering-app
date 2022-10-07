@@ -29,20 +29,25 @@ public class Drink {
     //            - returns true
     //         else, returns false
     public boolean addTopping(String newTopping) {
-        return false; //stub
+        if (this.toppings.size() < 2) {
+            this.toppings.add(newTopping);
+            this.price = this.price + 1;
+            return true;
+        }
+        return false;
     }
 
     // MODIFIES: this
     // EFFECTS: changes the flavor of the drink from the old one to the specified new flavor
     public void changeFlavor(String newFlavor) {
-        //stub
+        this.flavor = newFlavor;
     }
 
     // REQUIRES: newSize is either 1 or 2
     // MODIFIES: this
     // EFFECTS: changes the size of the drink from the old size to the new size, with 1 being a small and 2 a large
     public void changeSize(int newSize) {
-        //stub
+        this.size = newSize;
     }
 
     // MODIFIES: this
@@ -52,7 +57,12 @@ public class Drink {
     //            - returns true
     //         else, returns false
     public boolean removeTopping(String topping) {
-        return false; //stub
+        if (this.toppings.contains(topping)) {
+            this.toppings.remove(topping);
+            this.price = this.price - 1;
+            return true;
+        }
+        return false;
     }
 
     // EFFECTS: returns flavor of the drink

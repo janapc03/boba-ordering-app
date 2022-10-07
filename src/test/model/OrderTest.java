@@ -36,7 +36,7 @@ public class OrderTest {
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertTrue(testOrder.getOrder().contains(testDrink2));
         assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
+        assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
         assertEquals(2, testOrder.getNumDrinks());
     }
 
@@ -50,7 +50,7 @@ public class OrderTest {
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertTrue(testOrder.getOrder().contains(testDrink2));
         assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
+        assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
         assertEquals(2, testOrder.getNumDrinks());
         testOrder.addDrink(testDrink3);
         assertTrue(testOrder.getOrder().contains(testDrink1));
@@ -58,7 +58,8 @@ public class OrderTest {
         assertTrue(testOrder.getOrder().contains(testDrink3));
         assertEquals(testDrink1.getPrice() + testDrink2.getPrice() + testDrink3.getPrice(),
                 testOrder.getOrderTotal());
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
+        assertEquals(testDrink1.getPrice() + testDrink2.getPrice() + testDrink3.getPrice(),
+                testOrder.getOrderTotal());
         assertEquals(3, testOrder.getNumDrinks());
     }
 
