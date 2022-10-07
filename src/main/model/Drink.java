@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Represents a drink, having a flavor, size, price, and a maximum of 2 toppings.
@@ -8,7 +9,7 @@ public class Drink {
     private int size;
     private List<String> toppings;
     private int price;
-    private static int startingPrice = 5;
+    public static final int STARTING_PRICE = 5;
 
     // REQUIRES: size = 1 or 2
     // EFFECTS: constructs a drink having a flavor, size, starting price, and no toppings.
@@ -17,7 +18,8 @@ public class Drink {
     public Drink(String flavor, int size) {
         this.flavor = flavor;
         this.size = size;
-        this.price = startingPrice;
+        this.price = STARTING_PRICE;
+        this.toppings = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -26,20 +28,20 @@ public class Drink {
     //            - drink price is increased by $1
     //            - returns true
     //         else, returns false
-    private boolean addTopping(String newTopping) {
+    public boolean addTopping(String newTopping) {
         return false; //stub
     }
 
     // MODIFIES: this
     // EFFECTS: changes the flavor of the drink from the old one to the specified new flavor
-    private void changeFlavor(String newFlavor) {
+    public void changeFlavor(String newFlavor) {
         //stub
     }
 
     // REQUIRES: newSize is either 1 or 2
     // MODIFIES: this
     // EFFECTS: changes the size of the drink from the old size to the new size, with 1 being a small and 2 a large
-    private void changeSize(int newSize) {
+    public void changeSize(int newSize) {
         //stub
     }
 
@@ -49,7 +51,7 @@ public class Drink {
     //            - drink price is decreased by $1
     //            - returns true
     //         else, returns false
-    private boolean removeTopping(String topping) {
+    public boolean removeTopping(String topping) {
         return false; //stub
     }
 
