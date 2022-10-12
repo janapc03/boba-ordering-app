@@ -84,4 +84,8 @@ public class Drink {
     public List<String> getToppings() {
         return this.toppings;
     }
+
+    public int getNumToppings() {
+        return this.toppings.size();
+    }
 }
