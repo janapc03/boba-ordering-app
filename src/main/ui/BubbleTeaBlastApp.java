@@ -107,7 +107,24 @@ public class BubbleTeaBlastApp {
 
     // EFFECTS: prints the list of all the drinks in the order for the customer to view
     private void viewOrder() {
-        //stub
+        System.out.println("Your order currently contains:");
+        for (Drink drink : currentOrder.getOrder()) {
+            System.out.println("\t A "
+                    + drink.getFlavor()
+                    + drink.getFlavor()
+                    + " with toppings "
+                    + drink.getToppings()
+                    + ", $" + drink.getPrice());
+        }
+        System.out.println("\n Your current order total is: $" + currentOrder.getOrderTotal());
+    }
+
+    // EFFECTS: converts size int into a String representation
+    private String stringSize(int size) {
+        if (size == 1) {
+            return "small";
+        }
+        return "large";
     }
 
     // EFFECTS: allows user to choose flavor of new drink
