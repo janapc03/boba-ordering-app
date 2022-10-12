@@ -16,32 +16,30 @@ public class OrderTest {
         testDrink1 = new Drink("Thai Milk Tea", 2);
         testDrink2 = new Drink("Green Milk Tea", 1);
         testDrink3 = new Drink("Coffee Smoothie", 2);
-        testOrder = new Order(testDrink1);
+        testOrder = new Order();
     }
 
     @Test
     void testConstructor() {
-        assertTrue(testOrder.getOrder().contains(testDrink1));
-        assertEquals(1, testOrder.getNumDrinks());
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
     }
 
     @Test
     void testAddDrink() {
-        assertTrue(testOrder.getOrder().contains(testDrink1));
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
-        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
+        testOrder.addDrink(testDrink1);
         assertEquals(1, testOrder.getNumDrinks());
-        testOrder.addDrink(testDrink2);
         assertTrue(testOrder.getOrder().contains(testDrink1));
-        assertTrue(testOrder.getOrder().contains(testDrink2));
-        assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
-        assertEquals(testDrink1.getPrice() + testDrink2.getPrice(), testOrder.getOrderTotal());
-        assertEquals(2, testOrder.getNumDrinks());
+        assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
     }
 
     @Test
     void testAddMultipleDrinks() {
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
+        testOrder.addDrink(testDrink1);
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
         assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
@@ -65,6 +63,9 @@ public class OrderTest {
 
     @Test
     void testRemoveValidDrink() {
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
+        testOrder.addDrink(testDrink1);
         testOrder.addDrink(testDrink2);
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertTrue(testOrder.getOrder().contains(testDrink2));
@@ -79,6 +80,9 @@ public class OrderTest {
 
     @Test
     void testRemoveDrinkTooFewDrinks() {
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
+        testOrder.addDrink(testDrink1);
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertEquals(testDrink1.getPrice(), testOrder.getOrderTotal());
         assertEquals(1, testOrder.getNumDrinks());
@@ -90,6 +94,9 @@ public class OrderTest {
 
     @Test
     void testRemoveDrinkNotInOrder() {
+        assertTrue(testOrder.getOrder().isEmpty());
+        assertEquals(0, testOrder.getOrderTotal());
+        testOrder.addDrink(testDrink1);
         testOrder.addDrink(testDrink2);
         assertTrue(testOrder.getOrder().contains(testDrink1));
         assertTrue(testOrder.getOrder().contains(testDrink2));

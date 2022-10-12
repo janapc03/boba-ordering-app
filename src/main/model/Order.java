@@ -10,11 +10,10 @@ public class Order {
     private List<Drink> order;
     private int orderTotal;
 
-    // EFFECTS: constructs an order containing at least one drink and having an order total of the price of that drink
-    public Order(Drink drink) {
+    // EFFECTS: constructs an order containing no drinks and having an order total of $0
+    public Order() {
         this.order = new ArrayList<>();
-        this.order.add(drink);
-        this.orderTotal = drink.getPrice();
+        this.orderTotal = 0;
     }
 
     // MODIFIES: this
