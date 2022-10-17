@@ -79,7 +79,7 @@ public class BubbleTeaBlastApp {
     }
 
     // MODIFIES: currentOrder
-    // EFFECTS: adds a new drink to the order
+    // EFFECTS: adds a new drink to the order based on user input for drink specifications
     private void orderNewDrink() {
         String currentFlavor;
         int currentSize;
@@ -99,8 +99,9 @@ public class BubbleTeaBlastApp {
         System.out.println("This drink has been added to your order!");
     }
 
-    // MODIFIES: !!!!
-    // EFFECTS: changes an aspect of one drink in the order
+    // MODIFIES: currentDrink
+    // REQUIRES: there is at least one drink in the order
+    // EFFECTS: sets current drink to be changed to the one chosen by user
     private void changeDrink() {
         int command = 0;
         currentDrink = null;
@@ -110,10 +111,9 @@ public class BubbleTeaBlastApp {
             if (command == (currentOrder.getOrder().indexOf(drink) + 1)) {
                 currentDrink = drink;
             }
-            chooseAspectToChange();
         }
+        chooseAspectToChange();
     }
-
 
     // EFFECTS: prints the list of all the drinks in the order for the customer to view
     private void viewOrder() {
@@ -122,6 +122,7 @@ public class BubbleTeaBlastApp {
         System.out.println("\nYour current order total is: $" + currentOrder.getOrderTotal());
     }
 
+    // EFFECTS: prints the aspects of the drink that are available to change
     private void chooseAspectToChange() {
         System.out.println("\nWhich part of this drink would you like to change?");
         System.out.println("\tf -> flavor");
@@ -130,6 +131,8 @@ public class BubbleTeaBlastApp {
         changeAspectOfDrink();
     }
 
+    // MODIFIES: this, currentDrink
+    // EFFECTS: changes the flavor, size, or topping of drink based on user input
     private void changeAspectOfDrink() {
         String command = null;
         command = input.next();
@@ -145,13 +148,39 @@ public class BubbleTeaBlastApp {
         } else if (command.equals("t")) {
             System.out.println("This drink currently has " + currentDrink.getToppings() + " in it.");
             System.out.println("You may only have a maximum of 2 toppings in your drink.");
+            assessToppings();
+        }
+    }
+
+    // EFFECTS: if the drink has < 2 toppings, asks the user if they'd like to add or remove a topping
+    //          else, asks the user if they'd like to remove a topping
+    private void assessToppings() {
+        if (currentDrink.getNumToppings() < 2) {
             System.out.println("\nWould you like to add or remove a topping?");
             System.out.println("\ta -> add");
             System.out.println("\tr -> remove");
             promptAddOrRemoveTopping();
+        } else {
+            System.out.println("Would you like to remove a topping? (\"y\" or \"n\")");
+            askRemoveTopping();
         }
     }
 
+    // EFFECTS: assesses user input on whether they want to remove a topping or not
+    private void askRemoveTopping() {
+        String command = null;
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            printToppingsInDrink();
+            promptRemoveTopping();
+        } else if (command.equals("n")) {
+            System.out.println("Okay, the toppings in this drink will stay the same!");
+        }
+    }
+
+    // EFFECTS: assesses user input on whether they want to add or remove a topping
     private void promptAddOrRemoveTopping() {
         String command = null;
         command = input.next();
@@ -167,6 +196,8 @@ public class BubbleTeaBlastApp {
         }
     }
 
+    // REQUIRES: currentDrink has 1 or 2 toppings
+    // EFFECTS: prints the toppings in currentDrink
     private void printToppingsInDrink() {
         System.out.println("Which topping would you like to remove?");
         System.out.println("1 -> " + currentDrink.getToppings().get(0));
@@ -176,6 +207,8 @@ public class BubbleTeaBlastApp {
         }
     }
 
+    // MODIFIES: toppings in currentDrink
+    // EFFECTS: removes a topping in currentDrink based on topping given by user input
     private void promptRemoveTopping() {
         int command = 0;
 

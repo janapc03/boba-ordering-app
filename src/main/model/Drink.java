@@ -85,6 +85,7 @@ public class Drink {
         return this.toppings;
     }
 
+    // EFFECTS: returns the number of toppings in the drink
     public int getNumToppings() {
         return this.toppings.size();
     }
