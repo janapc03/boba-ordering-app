@@ -16,15 +16,16 @@ public class BubbleTeaBlastApp {
         runBubbleTeaBlast();
     }
 
-    // This method was taken from xxxxx
+    // This method was taken from Teller App https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     // MODIFIES: this
     // EFFECTS: processes user input
-    // !! NEEDS MODIFICATION !!
     private void runBubbleTeaBlast() {
         boolean keepGoing = true;
         String command = null;
 
         init();
+
+        System.out.println("Welcome to Bubble Tea Blast!");
 
         while (keepGoing) {
             displayMenu();
@@ -37,18 +38,19 @@ public class BubbleTeaBlastApp {
                 processCommand(command);
             }
         }
-
+        System.out.println("\nYour order total is $" + currentOrder.getOrderTotal());
         System.out.println("\nThank you for ordering!");
     }
 
-    // This method was taken from xxxx
+    // This method was taken from Teller App https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     // MODIFIES: this
     // EFFECTS: processes user command
-    // !!! NEEDS MODIFICATION !!!
     private void processCommand(String command) {
         if (command.equals("o")) {
             orderNewDrink();
         } else if (command.equals("c")) {
+            System.out.println("Please select the number of the drink you would like to change.");
+            printOrder();
             changeDrink();
         } else if (command.equals("v")) {
             viewOrder();
@@ -57,21 +59,19 @@ public class BubbleTeaBlastApp {
         }
     }
 
-    // This method was taken from xxxxxx
+    // This method was taken from Teller App https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     // MODIFIES: this
     // EFFECTS: initializes the current order
-    // !! NEEDS MODIFICATION !!!
     private void init() {
         currentOrder = new Order();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
 
-    // This method was taken from xxxxx
+    // This method was taken from Teller App https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     // EFFECTS: displays menu of options to user
-    // !!! NEEDS MODIFICATION !!
     private void displayMenu() {
-        System.out.println("\nWelcome! What would you like to do?");
+        System.out.println("\nWhat would you like to do?");
         System.out.println("\to -> order a new drink");
         System.out.println("\tc -> change a drink in my order");
         System.out.println("\tv -> view my order");
@@ -102,21 +102,94 @@ public class BubbleTeaBlastApp {
     // MODIFIES: !!!!
     // EFFECTS: changes an aspect of one drink in the order
     private void changeDrink() {
-        //stub
+        int command = 0;
+        currentDrink = null;
+        command = Integer.parseInt(input.next());
+
+        for (Drink drink : currentOrder.getOrder()) {
+            if (command == (currentOrder.getOrder().indexOf(drink) + 1)) {
+                currentDrink = drink;
+            }
+            chooseAspectToChange();
+        }
     }
+
 
     // EFFECTS: prints the list of all the drinks in the order for the customer to view
     private void viewOrder() {
         System.out.println("Your order currently contains:");
-        for (Drink drink : currentOrder.getOrder()) {
-            System.out.println("\t A "
-                    + drink.getFlavor()
-                    + drink.getFlavor()
-                    + " with toppings "
-                    + drink.getToppings()
-                    + ", $" + drink.getPrice());
+        printOrder();
+        System.out.println("\nYour current order total is: $" + currentOrder.getOrderTotal());
+    }
+
+    private void chooseAspectToChange() {
+        System.out.println("\nWhich part of this drink would you like to change?");
+        System.out.println("\tf -> flavor");
+        System.out.println("\ts -> size");
+        System.out.println("\tt -> toppings");
+        changeAspectOfDrink();
+    }
+
+    private void changeAspectOfDrink() {
+        String command = null;
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("f")) {
+            displayFlavorChoices();
+            String newFlavor = chooseFlavor();
+            currentDrink.changeFlavor(newFlavor);
+        } else if (command.equals("s")) {
+            System.out.println("Would you like a small or large size? (\"s\" or \"l\")");
+            currentDrink.changeSize(chooseSize());
+        } else if (command.equals("t")) {
+            System.out.println("This drink currently has " + currentDrink.getToppings() + " in it.");
+            System.out.println("You may only have a maximum of 2 toppings in your drink.");
+            System.out.println("\nWould you like to add or remove a topping?");
+            System.out.println("\ta -> add");
+            System.out.println("\tr -> remove");
+            promptAddOrRemoveTopping();
         }
-        System.out.println("\n Your current order total is: $" + currentOrder.getOrderTotal());
+    }
+
+    private void promptAddOrRemoveTopping() {
+        String command = null;
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("a")) {
+            if (currentDrink.getNumToppings() < 2) {
+                displayToppingsChoices();
+            }
+        } else if (command.equals("r")) {
+            printToppingsInDrink();
+            promptRemoveTopping();
+        }
+    }
+
+    private void printToppingsInDrink() {
+        System.out.println("Which topping would you like to remove?");
+        System.out.println("1 -> " + currentDrink.getToppings().get(0));
+
+        if (currentDrink.getNumToppings() == 2) {
+            System.out.println("2 -> " + currentDrink.getToppings().get(1));
+        }
+    }
+
+    private void promptRemoveTopping() {
+        int command = 0;
+
+        if (input.hasNextInt()) {
+            command = input.nextInt();
+            if (command == 1) {
+                currentDrink.getToppings().remove(currentDrink.getToppings().get(0));
+            } else if (command == 2) {
+                currentDrink.getToppings().remove(currentDrink.getToppings().get(1));
+            }
+        } else {
+            System.out.println("That's not a number!");
+        }
+        System.out.println("This topping has been removed!");
     }
 
     // EFFECTS: converts size int into a String representation
@@ -227,5 +300,17 @@ public class BubbleTeaBlastApp {
         System.out.println("\ts -> strawberry green tea");
         System.out.println("\tp -> passionfruit green tea");
         System.out.println("\tk -> kiwi green tea");
+    }
+
+    // EFFECTS: prints the drinks in the order
+    private void printOrder() {
+        for (Drink drink : currentOrder.getOrder()) {
+            System.out.println("\t" + (currentOrder.getOrder().indexOf(drink) + 1) + " - A "
+                    + stringSize(drink.getSize()) + " "
+                    + drink.getFlavor()
+                    + " with toppings "
+                    + drink.getToppings()
+                    + ", $" + drink.getPrice());
+        }
     }
 }

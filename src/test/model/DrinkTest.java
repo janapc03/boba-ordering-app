@@ -27,6 +27,7 @@ class DrinkTest {
         testDrink.addTopping("Boba");
         assertTrue(testDrink.getToppings().contains("Boba"));
         assertEquals(Drink.STARTING_PRICE + 1, testDrink.getPrice());
+        assertEquals(1, testDrink.getNumToppings());
     }
 
     @Test
@@ -39,9 +40,11 @@ class DrinkTest {
         assertTrue(testDrink.getToppings().contains("Boba"));
         assertTrue(testDrink.getToppings().contains("Pudding"));
         assertEquals(Drink.STARTING_PRICE + 2, testDrink.getPrice());
+        assertEquals(2, testDrink.getNumToppings());
         testDrink.addTopping("Jelly");
         assertFalse(testDrink.getToppings().contains("Jelly"));
         assertEquals(Drink.STARTING_PRICE + 2, testDrink.getPrice());
+        assertEquals(2, testDrink.getNumToppings());
     }
 
     @Test
@@ -65,10 +68,12 @@ class DrinkTest {
         assertTrue(testDrink.getToppings().contains("Boba"));
         assertTrue(testDrink.getToppings().contains("Pudding"));
         assertEquals(Drink.STARTING_PRICE + 2, testDrink.getPrice());
+        assertEquals(2, testDrink.getNumToppings());
         testDrink.removeTopping("Boba");
         assertFalse(testDrink.getToppings().contains("Boba"));
         assertTrue(testDrink.getToppings().contains("Pudding"));
         assertEquals(Drink.STARTING_PRICE + 1, testDrink.getPrice());
+        assertEquals(1, testDrink.getNumToppings());
     }
 
     @Test
@@ -78,9 +83,11 @@ class DrinkTest {
         assertTrue(testDrink.getToppings().contains("Boba"));
         assertTrue(testDrink.getToppings().contains("Pudding"));
         assertEquals(Drink.STARTING_PRICE + 2, testDrink.getPrice());
+        assertEquals(2, testDrink.getNumToppings());
         testDrink.removeTopping("Jelly");
         assertTrue(testDrink.getToppings().contains("Boba"));
         assertTrue(testDrink.getToppings().contains("Pudding"));
         assertEquals(Drink.STARTING_PRICE + 2, testDrink.getPrice());
+        assertEquals(2, testDrink.getNumToppings());
     }
 }
