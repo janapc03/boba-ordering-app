@@ -2,7 +2,11 @@ package ui;
 
 import model.Drink;
 import model.Order;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Bubble Tea Blast application
@@ -10,9 +14,14 @@ public class BubbleTeaBlastApp {
     private Order currentOrder;
     private Drink currentDrink;
     private Scanner input;
+    private static final String JSON_STORE = "./data/order.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the Bubble Tea Blast application
     public BubbleTeaBlastApp() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runBubbleTeaBlast();
     }
 
@@ -54,6 +63,10 @@ public class BubbleTeaBlastApp {
             changeDrink();
         } else if (command.equals("v")) {
             viewOrder();
+        } else if (command.equals("s")) {
+            saveOrder();
+        } else if (command.equals("l")) {
+            loadOrder();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -75,6 +88,8 @@ public class BubbleTeaBlastApp {
         System.out.println("\to -> order a new drink");
         System.out.println("\tc -> change a drink in my order");
         System.out.println("\tv -> view my order");
+        System.out.println("\ts -> save my order for next time");
+        System.out.println("\tl -> load my order from last time");
         System.out.println("\tf -> finish ordering and pay");
     }
 
@@ -344,6 +359,31 @@ public class BubbleTeaBlastApp {
                     + " with toppings "
                     + drink.getToppings()
                     + ", $" + drink.getPrice());
+        }
+    }
+
+    //!!! This method was taken from JsonSerializationDemo
+    // EFFECTS: saves the order to file
+    private void saveOrder() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(currentOrder);
+            jsonWriter.close();
+            System.out.println("Saved " + currentOrder.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    //!!! This method was taken from JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads order from file
+    private void loadOrder() {
+        try {
+            currentOrder = jsonReader.read();
+            System.out.println("Loaded " + currentOrder.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }
