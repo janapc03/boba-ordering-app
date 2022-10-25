@@ -10,10 +10,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-// This class was derived from JsonSerializationDemo
-// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 class JsonReaderTest extends JsonTest {
 
+    // This method was derived from JsonReaderTest class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Test
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
@@ -25,6 +25,8 @@ class JsonReaderTest extends JsonTest {
         }
     }
 
+    // This method was derived from JsonReaderTest class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Test
     void testReaderEmptyOrder() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyOrder.json");
@@ -38,6 +40,8 @@ class JsonReaderTest extends JsonTest {
         }
     }
 
+    // This method was derived from JsonReaderTest class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Test
     void testReaderGeneralOrder() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralOrder.json");

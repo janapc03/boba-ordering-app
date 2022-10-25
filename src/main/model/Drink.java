@@ -93,6 +93,8 @@ public class Drink implements Writable {
         return this.toppings.size();
     }
 
+    // This method was derived from Thingy class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

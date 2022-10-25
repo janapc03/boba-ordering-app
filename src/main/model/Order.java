@@ -63,6 +63,8 @@ public class Order implements Writable {
         return this.name;
     }
 
+    // This method was derived from WorkRoom class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -71,7 +73,9 @@ public class Order implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // This method was derived from WorkRoom class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+    // EFFECTS: returns things in this order as a JSON array
     private JSONArray drinksToJson() {
         JSONArray jsonArray = new JSONArray();
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// This method was derived from JsonSerializationDemo
+// This method was derived from JsonTest in JsonSerializationDemo
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonTest {
     protected void checkDrink(String flavor, int size, List<String> toppings, int price, Drink drink) {

@@ -11,6 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+// This class was derived from JsonReader class in JsonSerializationDemo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 // Represents a reader that reads order from JSON data stored in file
 public class JsonReader {
     private String source;
@@ -48,7 +50,7 @@ public class JsonReader {
     }
 
     // MODIFIES: order
-    // EFFECTS: parses drinks from JSON object and adds them to workroom
+    // EFFECTS: parses drinks from JSON object and adds them to order
     private void addDrinks(Order order, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("drinks");
         for (Object json : jsonArray) {

@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-// Represents a writer that writes JSON representation of workroom to file
+// This class was derived from JsonWriter class in JsonSerializationDemo
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+// Represents a writer that writes JSON representation of order to file
 public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter writer;
