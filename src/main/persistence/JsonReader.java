@@ -41,7 +41,7 @@ public class JsonReader {
 
     // EFFECTS: parses order from JSON object and returns it
     private Order parseOrder(JSONObject jsonObject) {
-        String name = jsonObject.getString("name"); //!!!
+        String name = jsonObject.getString("name");
         Order order = new Order(name);
         addDrinks(order, jsonObject);
         return order;

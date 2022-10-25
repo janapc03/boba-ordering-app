@@ -1,6 +1,5 @@
 package model;
 
-import model.Drink;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -68,11 +67,12 @@ public class Order implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("thingies", thingiesToJson());
+        json.put("drinks", drinksToJson());
         return json;
     }
+
     // EFFECTS: returns things in this workroom as a JSON array
-    private JSONArray thingiesToJson() {
+    private JSONArray drinksToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Drink drink : order) {

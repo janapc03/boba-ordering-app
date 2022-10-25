@@ -1,0 +1,20 @@
+{
+    "drinks": [
+        {
+            "flavor": "classic milk tea",
+            "size": 2,
+            "price": 6,
+            "toppings": ["boba"]
+        },
+        {
+            "flavor": "matcha milk tea",
+            "size": 1,
+            "price": 7,
+            "toppings": [
+                "pudding",
+                "jelly"
+            ]
+        }
+    ],
+    "name": "Your order"
+}
