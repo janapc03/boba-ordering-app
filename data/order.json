@@ -1,0 +1,9 @@
+{
+    "drinks": [{
+        "flavor": "passionfruit green tea",
+        "size": 2,
+        "price": 5,
+        "toppings": []
+    }],
+    "name": "Your order"
+}

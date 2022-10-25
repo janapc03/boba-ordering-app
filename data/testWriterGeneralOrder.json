@@ -14,13 +14,7 @@
                 "pudding",
                 "jelly"
             ]
-        },
-      {
-        "flavor": "wintermelon milk tea",
-        "size": 1,
-        "price": 5,
-        "toppings": []
-      }
+        }
     ],
     "name": "Your order"
 }
