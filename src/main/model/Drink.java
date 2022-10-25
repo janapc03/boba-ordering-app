@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a drink, having a flavor, size, price, and a maximum of 2 toppings.
-public class Drink {
+public class Drink implements Writable {
     private String flavor;
     private int size;
     private List<String> toppings;
@@ -88,5 +91,15 @@ public class Drink {
     // EFFECTS: returns the number of toppings in the drink
     public int getNumToppings() {
         return this.toppings.size();
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("flavor", flavor);
+        json.put("size", size);
+        json.put("price", price);
+        json.put("toppings", toppings);
+        return json;
     }
 }

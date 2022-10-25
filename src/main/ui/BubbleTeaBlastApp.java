@@ -63,7 +63,7 @@ public class BubbleTeaBlastApp {
     // MODIFIES: this
     // EFFECTS: initializes the current order
     private void init() {
-        currentOrder = new Order();
+        currentOrder = new Order("Your order");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }

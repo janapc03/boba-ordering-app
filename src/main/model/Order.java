@@ -1,17 +1,23 @@
 package model;
 
 import model.Drink;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents an order containing at least one drink
-public class Order {
+public class Order implements Writable {
     private List<Drink> order;
     private int orderTotal;
+    private String name;
 
-    // EFFECTS: constructs an order containing no drinks and having an order total of $0
-    public Order() {
+    // EFFECTS: constructs an order with a name containing no drinks and having an order total of $0
+    public Order(String name) {
+        this.name = name;
         this.order = new ArrayList<>();
         this.orderTotal = 0;
     }
@@ -51,5 +57,28 @@ public class Order {
     // EFFECTS: returns the number of drinks in the order
     public int getNumDrinks() {
         return this.order.size();
+    }
+
+    // EFFECTS: returns the name of an order
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("thingies", thingiesToJson());
+        return json;
+    }
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray thingiesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Drink drink : order) {
+            jsonArray.put(drink.toJson());
+        }
+
+        return jsonArray;
     }
 }

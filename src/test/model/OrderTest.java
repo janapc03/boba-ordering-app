@@ -16,7 +16,7 @@ public class OrderTest {
         testDrink1 = new Drink("Thai Milk Tea", 2);
         testDrink2 = new Drink("Green Milk Tea", 1);
         testDrink3 = new Drink("Coffee Smoothie", 2);
-        testOrder = new Order();
+        testOrder = new Order("Test order");
     }
 
     @Test

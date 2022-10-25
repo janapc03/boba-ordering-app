@@ -14,5 +14,5 @@ based on my personal interests.
 - As a user, I want to be able to choose the flavor, size, and toppings in my drink
 - As a user, I want to be able to view the list of drinks in my order
 - As a user, I want to be able to select a drink in my order and change an aspect of it
-- As a user, I want to be able to save my order, so that I can order it again next time
-- As a user, I want to be able to load my order from last time
+- As a user, when I finish and pay, I want to be able to have the option to save my order
+- As a user, I want to be able to load my order from last time, so that I can order it again
