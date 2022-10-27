@@ -103,7 +103,6 @@ public class BubbleTeaBlastApp {
         System.out.println("Would you like a small or large size? (\"s\" or \"l\")");
         currentSize = chooseSize();
         currentDrink = new Drink(currentFlavor, currentSize);
-        currentOrder.addDrink(currentDrink);
         System.out.println("There are currently " + currentDrink.getNumToppings() + " toppings in this drink.");
         if (currentDrink.getNumToppings() < 2) {
             System.out.println("Would you like to add a topping to your drink? (\"y\" or \"n\")");
@@ -111,6 +110,7 @@ public class BubbleTeaBlastApp {
         } else {
             System.out.println("You've reached the maximum number of toppings for your drink!");
         }
+        currentOrder.addDrink(currentDrink);
         System.out.println("This drink has been added to your order!");
     }
 
