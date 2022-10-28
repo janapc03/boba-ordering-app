@@ -42,6 +42,8 @@ public class BubbleTeaBlastApp {
             command = command.toLowerCase();
 
             if (command.equals("f")) {
+                System.out.println("Would you like to save this order for next time? (\"y\" or \"n\")");
+                promptSaveOrder();
                 keepGoing = false;
             } else {
                 processCommand(command);
@@ -49,6 +51,17 @@ public class BubbleTeaBlastApp {
         }
         System.out.println("\nYour order total is $" + currentOrder.getOrderTotal());
         System.out.println("\nThank you for ordering!");
+    }
+
+    // EFFECTS: processes if a user want to save their order or not
+    private void promptSaveOrder() {
+        String command = null;
+        command = input.next();
+        command = command.toLowerCase();
+
+        if (command.equals("y")) {
+            saveOrder();
+        }
     }
 
     // This method was taken from Teller App https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
@@ -63,8 +76,6 @@ public class BubbleTeaBlastApp {
             changeDrink();
         } else if (command.equals("v")) {
             viewOrder();
-        } else if (command.equals("s")) {
-            saveOrder();
         } else if (command.equals("l")) {
             loadOrder();
         } else {
@@ -88,7 +99,6 @@ public class BubbleTeaBlastApp {
         System.out.println("\to -> order a new drink");
         System.out.println("\tc -> change a drink in my order");
         System.out.println("\tv -> view my order");
-        System.out.println("\ts -> save my order for next time");
         System.out.println("\tl -> load my order from last time");
         System.out.println("\tf -> finish ordering and pay");
     }
@@ -362,7 +372,7 @@ public class BubbleTeaBlastApp {
         }
     }
 
-    //!!! This method was taken from JsonSerializationDemo
+    // This method was taken from JsonSerializationDemo
     // EFFECTS: saves the order to file
     private void saveOrder() {
         try {
@@ -375,7 +385,7 @@ public class BubbleTeaBlastApp {
         }
     }
 
-    //!!! This method was taken from JsonSerializationDemo
+    // This method was taken from JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads order from file
     private void loadOrder() {

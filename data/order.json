@@ -1,13 +1,13 @@
 {
     "drinks": [
         {
-            "flavor": "matcha milk tea",
+            "flavor": "kiwi green tea",
             "size": 2,
             "price": 5,
             "toppings": []
         },
         {
-            "flavor": "kiwi green tea",
+            "flavor": "passionfruit green tea",
             "size": 1,
             "price": 7,
             "toppings": [
