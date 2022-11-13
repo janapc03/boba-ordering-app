@@ -13,6 +13,5 @@ public class PrimaryFrame extends JFrame {
         this.setLayout(new GridLayout(1, 2));
 
         this.setSize(960,540);
-        this.setVisible(true);
     }
 }
