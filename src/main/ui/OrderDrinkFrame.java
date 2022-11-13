@@ -74,20 +74,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
     }
 
     private JPanel makeFlavorButtonsPanel() {
-        classicButton = new JRadioButton("Classic Milk Tea");
-        wintermelonButton = new JRadioButton("Wintermelon Milk Tea");
-        matchaButton = new JRadioButton("Matcha Milk Tea");
-        strawberryButton = new JRadioButton("Strawberry Green Tea");
-        taroButton = new JRadioButton("Taro Milk Tea");
-        thaiButton = new JRadioButton("Thai Milk Tea");
-
-        ButtonGroup flavorButtons = new ButtonGroup();
-        flavorButtons.add(classicButton);
-        flavorButtons.add(wintermelonButton);
-        flavorButtons.add(matchaButton);
-        flavorButtons.add(strawberryButton);
-        flavorButtons.add(taroButton);
-        flavorButtons.add(thaiButton);
+        setUpFlavorButtons();
 
         JPanel flavorButtonsPanel = new JPanel();
         flavorButtonsPanel.setLayout(new GridLayout(3, 2));
@@ -99,6 +86,29 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
         flavorButtonsPanel.add(thaiButton);
 
         return flavorButtonsPanel;
+    }
+
+    private void setUpFlavorButtons() {
+        classicButton = new JRadioButton("Classic Milk Tea");
+        classicButton.addActionListener(this);
+        wintermelonButton = new JRadioButton("Wintermelon Milk Tea");
+        wintermelonButton.addActionListener(this);
+        matchaButton = new JRadioButton("Matcha Milk Tea");
+        matchaButton.addActionListener(this);
+        strawberryButton = new JRadioButton("Strawberry Green Tea");
+        strawberryButton.addActionListener(this);
+        taroButton = new JRadioButton("Taro Milk Tea");
+        taroButton.addActionListener(this);
+        thaiButton = new JRadioButton("Thai Milk Tea");
+        thaiButton.addActionListener(this);
+
+        ButtonGroup flavorButtons = new ButtonGroup();
+        flavorButtons.add(classicButton);
+        flavorButtons.add(wintermelonButton);
+        flavorButtons.add(matchaButton);
+        flavorButtons.add(strawberryButton);
+        flavorButtons.add(taroButton);
+        flavorButtons.add(thaiButton);
     }
 
     private JPanel makeSizePanel() {
@@ -120,17 +130,23 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
         JPanel sizeButtonsPanel = new JPanel();
         sizeButtonsPanel.setLayout(new GridLayout(1, 2));
 
-        smallSizeButton = new JRadioButton("Small");
-        largeSizeButton = new JRadioButton("Large");
-
-        ButtonGroup sizeButtons = new ButtonGroup();
-        sizeButtons.add(smallSizeButton);
-        sizeButtons.add(largeSizeButton);
+        setUpSizeButtons();
 
         sizeButtonsPanel.add(smallSizeButton);
         sizeButtonsPanel.add(largeSizeButton);
 
         return sizeButtonsPanel;
+    }
+
+    private void setUpSizeButtons() {
+        smallSizeButton = new JRadioButton("Small");
+        smallSizeButton.addActionListener(this);
+        largeSizeButton = new JRadioButton("Large");
+        largeSizeButton.addActionListener(this);
+
+        ButtonGroup sizeButtons = new ButtonGroup();
+        sizeButtons.add(smallSizeButton);
+        sizeButtons.add(largeSizeButton);
     }
 
     private JPanel makeToppingsPanel() {
@@ -152,7 +168,8 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
         toppingsButtonPanel.setLayout(new GridLayout(5, 2));
         JLabel toppingOne = new JLabel("Topping 1:");
         JLabel toppingTwo = new JLabel("Topping 2:");
-        setUpToppingButtons();
+        setUpToppingOneButtons();
+        setUpToppingTwoButtons();
 
         toppingsButtonPanel.add(toppingOne);
         toppingsButtonPanel.add(toppingTwo);
@@ -168,21 +185,32 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
         return toppingsButtonPanel;
     }
 
-    private void setUpToppingButtons() {
+    private void setUpToppingOneButtons() {
         bobaOne = new JRadioButton("Boba (+$1)");
+        bobaOne.addActionListener(this);
         puddingOne = new JRadioButton("Pudding (+$1)");
+        puddingOne.addActionListener(this);
         jellyOne = new JRadioButton("Jelly (+$1)");
+        jellyOne.addActionListener(this);
         noToppingOne = new JRadioButton("None");
-        bobaTwo = new JRadioButton("Boba (+$1)");
-        puddingTwo = new JRadioButton("Pudding (+$1)");
-        jellyTwo = new JRadioButton("Jelly (+$1)");
-        noToppingTwo = new JRadioButton("None");
+        noToppingOne.addActionListener(this);
 
         ButtonGroup toppingOneButtons = new ButtonGroup();
         toppingOneButtons.add(bobaOne);
         toppingOneButtons.add(puddingOne);
         toppingOneButtons.add(jellyOne);
         toppingOneButtons.add(noToppingOne);
+    }
+
+    private void setUpToppingTwoButtons() {
+        bobaTwo = new JRadioButton("Boba (+$1)");
+        bobaTwo.addActionListener(this);
+        puddingTwo = new JRadioButton("Pudding (+$1)");
+        puddingTwo.addActionListener(this);
+        jellyTwo = new JRadioButton("Jelly (+$1)");
+        jellyTwo.addActionListener(this);
+        noToppingTwo = new JRadioButton("None");
+        noToppingTwo.addActionListener(this);
 
         ButtonGroup toppingTwoButtons = new ButtonGroup();
         toppingTwoButtons.add(bobaTwo);
@@ -205,6 +233,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener {
                 currentDrink.addTopping(topping2);
             }
             this.currentOrder.addDrink(currentDrink);
+            this.dispose();
         }
     }
 
