@@ -1,11 +1,15 @@
 package ui;
 
 import model.Order;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class BubbleTeaBlastAppGUI implements ActionListener {
     private Order order;
@@ -21,9 +25,14 @@ public class BubbleTeaBlastAppGUI implements ActionListener {
     private JButton saveCurrentOrderButton;
     private JButton loadSavedOrderButton;
     private JButton finishAndPayButton;
+    private static final String JSON_STORE = "./data/order.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     public BubbleTeaBlastAppGUI() {
         this.order = new Order("Your Order");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         primaryFrame = new PrimaryFrame();
 
         bubbleTeaShopImageIcon = createImageIcon("./images/BubbleTeaShopImage.png");
@@ -117,12 +126,33 @@ public class BubbleTeaBlastAppGUI implements ActionListener {
         }
     }
 
+    // This method was taken from WorkRoomApp class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+    // EFFECTS: saves the order to file
     private void saveCurrentOrder() {
-        //!!!
+        try {
+            jsonWriter.open();
+            jsonWriter.write(this.order);
+            jsonWriter.close();
+            JOptionPane.showMessageDialog(primaryFrame, "Your order has been saved!", "Save Successful",
+                    JOptionPane.PLAIN_MESSAGE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
+    // This method was taken from WorkRoomApp class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+    // MODIFIES: this
+    // EFFECTS: loads order from file
     private void loadSavedOrder() {
-        //!!!
+        try {
+            this.order = jsonReader.read();
+            JOptionPane.showMessageDialog(primaryFrame, "Your order has been loaded!", "Load Successful",
+                    JOptionPane.PLAIN_MESSAGE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     private void finishAndPay() {

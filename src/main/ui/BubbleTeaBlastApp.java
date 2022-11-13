@@ -372,7 +372,8 @@ public class BubbleTeaBlastApp {
         }
     }
 
-    // This method was taken from JsonSerializationDemo
+    // This method was taken from WorkRoomApp class in JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     // EFFECTS: saves the order to file
     private void saveOrder() {
         try {
@@ -385,7 +386,8 @@ public class BubbleTeaBlastApp {
         }
     }
 
-    // This method was taken from JsonSerializationDemo
+    // This method was taken from WorkRoomApp class in  JsonSerializationDemo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     // MODIFIES: this
     // EFFECTS: loads order from file
     private void loadOrder() {

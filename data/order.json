@@ -1,20 +1,23 @@
 {
     "drinks": [
         {
-            "flavor": "classic milk tea",
-            "size": 2,
-            "price": 5,
-            "toppings": []
-        },
-        {
-            "flavor": "kiwi green tea",
+            "flavor": "strawberry green tea",
             "size": 1,
             "price": 7,
             "toppings": [
                 "jelly",
-                "pudding"
+                "boba"
+            ]
+        },
+        {
+            "flavor": "matcha milk tea",
+            "size": 2,
+            "price": 7,
+            "toppings": [
+                "jelly",
+                "boba"
             ]
         }
     ],
-    "name": "Your order"
+    "name": "Your Order"
 }
