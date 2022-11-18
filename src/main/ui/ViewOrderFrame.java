@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// Represents the frame where user views their order
 public class ViewOrderFrame extends JFrame {
     private Order currentOrder;
     private JPanel yourOrderPanel;
     private Font pixelMPlusFont;
 
     // MODIFIES: this
-    // EFFECTS: creates and sets up frame
+    // EFFECTS: creates and sets up ordering viewing frame
     public ViewOrderFrame(Order order) {
         super("My Order");
         this.currentOrder = order;
@@ -30,6 +31,7 @@ public class ViewOrderFrame extends JFrame {
         this.setVisible(true);
     }
 
+    // EFFECTS: registers custom font and sets it up
     private void setUpFont() {
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -42,6 +44,7 @@ public class ViewOrderFrame extends JFrame {
         }
     }
 
+    // EFFECTS: creates and returns order panel with all components added
     private JPanel makeYourOrderPanel() {
         JLabel yourOrder = new JLabel("Your Order:", JLabel.CENTER);
         yourOrder.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
@@ -59,16 +62,16 @@ public class ViewOrderFrame extends JFrame {
         return yourOrderPanel;
     }
 
+    // EFFECTS: creates and returns panel with each drink in order printed on it
     private JPanel displayOrder() {
         JPanel drinkPanel = new JPanel();
         drinkPanel.setLayout(new GridLayout(0,1));
         drinkPanel.setBorder(BorderFactory.createEmptyBorder(40,20,20,20));
-        ImageIcon bobaImage = new ImageIcon("src/main/ui/images/TaroBoba.png");
         for (Drink drink : this.currentOrder.getOrder()) {
             String drinkDescription = " A " + intToSize(drink.getSize()) + " " + drink.getFlavor()
                     + toStringToppings(drink.getToppings()) + " ($" + drink.getPrice() + ")";
             JLabel currentDrink = new JLabel(drinkDescription);
-            currentDrink.setIcon(bobaImage);
+            currentDrink.setIcon(setImageIcon(drink));
             currentDrink.setFont(pixelMPlusFont.deriveFont(15f));
             drinkPanel.add(currentDrink);
         }
@@ -80,6 +83,24 @@ public class ViewOrderFrame extends JFrame {
         return drinkPanel;
     }
 
+    // EFFECTS: sets the image icon for the JLabel of the current drink in the order to match the flavor of the drink
+    private ImageIcon setImageIcon(Drink drink) {
+        ImageIcon bobaImage;
+        if (drink.getFlavor() == "classic milk tea" || drink.getFlavor() == "wintermelon milk tea") {
+            bobaImage = new ImageIcon("src/main/ui/images/ClassicBoba.png");
+        } else if (drink.getFlavor() == "matcha milk tea") {
+            bobaImage = new ImageIcon("src/main/ui/images/MatchaBoba.png");
+        } else if (drink.getFlavor() == "strawberry green tea") {
+            bobaImage = new ImageIcon("src/main/ui/images/StrawberryBoba.png");
+        } else if (drink.getFlavor() == "taro milk tea") {
+            bobaImage = new ImageIcon("src/main/ui/images/TaroBoba.png");
+        } else {
+            bobaImage = new ImageIcon("src/main/ui/images/ThaiBoba.png");
+        }
+        return bobaImage;
+    }
+
+    // EFFECTS: creates and returns a string "small" or "large" depending on the int representation of the drink's size
     private String intToSize(int size) {
         if (size == 1) {
             return "small";
@@ -88,6 +109,7 @@ public class ViewOrderFrame extends JFrame {
         }
     }
 
+    // EFFECTS: creates returns panel with summary of order number of drinks and total
     private JPanel makeOrderSummaryPanel() {
         JPanel orderSummaryPanel = new JPanel();
         orderSummaryPanel.setLayout(new GridLayout(2, 1));
@@ -107,6 +129,12 @@ public class ViewOrderFrame extends JFrame {
         return orderSummaryPanel;
     }
 
+    // EFFECTS: if the drink has no toppings:
+    //              - returns an empty string
+    //          if the drink has 1 topping:
+    //              - returns a string " with " + topping1
+    //          if the drink has 2 toppings:
+    //              - returns the string if it has 1 topping + " and " + topping2
     private String toStringToppings(List<String> toppings) {
         String toppingsString;
         if (toppings.size() == 0) {

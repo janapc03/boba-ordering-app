@@ -13,7 +13,10 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+// Represents the graphical user interface of Bubble Tea Blast
 public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
     private Order order;
     private PrimaryFrame primaryFrame;
@@ -35,13 +38,14 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
     private Font bubbleWorldFont;
     private Font pixelMPlusFont;
 
+    // EFFECTS: constructs the primary frame with all components added
     public BubbleTeaBlastAppGUI() {
         this.order = new Order("Your Order");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         primaryFrame = new PrimaryFrame();
 
-        bubbleTeaShopImageIcon = createImageIcon("./images/BubbleTeaShopImage.png");
+        bubbleTeaShopImageIcon = new ImageIcon("src/main/ui/images/BubbleTeaShopImage.png");
 
         primaryFrame.add(makeBubbleTeaShopPanel());
         primaryFrame.add(makeMainMenuPanel());
@@ -49,6 +53,7 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         primaryFrame.setVisible(true);
     }
 
+    // EFFECTS: creates and returns the left panel containing the bubble tea shop image
     private JPanel makeBubbleTeaShopPanel() {
         Image image = bubbleTeaShopImageIcon.getImage();
         Image newImg = image.getScaledInstance(480, 540,  Image.SCALE_SMOOTH);
@@ -64,6 +69,8 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         return leftPanel;
     }
 
+    // EFFECTS: creates and returns the right panel containing the main menu with welcome message, action prompt,
+    //          and buttons for each possible action
     private JPanel makeMainMenuPanel() {
         setUpFont();
         setUpButtons();
@@ -91,35 +98,28 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         return rightPanel;
     }
 
+    // EFFECTS: sets up main menu buttons with ActionListener, ActionCommand, MouseListener and font
     private void setUpButtons() {
         Font buttonFont = pixelMPlusFont.deriveFont(Font.PLAIN);
+        List<JButton> buttons = new ArrayList<>();
         orderNewDrinkButton = new JButton("Order New Drink");
-        orderNewDrinkButton.addActionListener(this);
-        orderNewDrinkButton.setActionCommand("order new drink");
-        orderNewDrinkButton.addMouseListener(this);
-        orderNewDrinkButton.setFont(buttonFont);
         viewMyOrderButton = new JButton("View My Order");
-        viewMyOrderButton.addActionListener(this);
-        viewMyOrderButton.setActionCommand("view my order");
-        viewMyOrderButton.addMouseListener(this);
-        viewMyOrderButton.setFont(buttonFont);
         saveCurrentOrderButton = new JButton("Save Current Order");
-        saveCurrentOrderButton.addActionListener(this);
-        saveCurrentOrderButton.setActionCommand("save current order");
-        saveCurrentOrderButton.addMouseListener(this);
-        saveCurrentOrderButton.setFont(buttonFont);
         loadSavedOrderButton = new JButton("Load Saved Order");
-        loadSavedOrderButton.addActionListener(this);
-        loadSavedOrderButton.setActionCommand("load saved order");
-        loadSavedOrderButton.addMouseListener(this);
-        loadSavedOrderButton.setFont(buttonFont);
         finishAndPayButton = new JButton("Finish and Pay");
-        finishAndPayButton.addActionListener(this);
-        finishAndPayButton.setActionCommand("finish and pay");
-        finishAndPayButton.addMouseListener(this);
-        finishAndPayButton.setFont(buttonFont);
+        buttons.add(orderNewDrinkButton);
+        buttons.add(viewMyOrderButton);
+        buttons.add(saveCurrentOrderButton);
+        buttons.add(loadSavedOrderButton);
+        buttons.add(finishAndPayButton);
+        for (JButton button : buttons) {
+            button.addActionListener(this);
+            button.addMouseListener(this);
+            button.setFont(buttonFont);
+        }
     }
 
+    // EFFECTS: registers custom fonts and sets them up
     private void setUpFont() {
         try {
             bubbleWorldFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -136,30 +136,23 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         }
     }
 
-    // EFFECTS: creates an image icon
-    private ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = this.getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
+    // EFFECTS: if orderNewDrinkButton or viewOrderButton is clicked, opens new frame with respective content
+    //          if saveCurrentOrderButton is clicked, saves user's order
+    //          if loadCurrentOrderButton is click, loads user's previous order
+    //          if finishAndPayButton is clicked, displays successful message and closes frame
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("order new drink".equals(e.getActionCommand())) {
+        if (e.getSource() == orderNewDrinkButton) {
             OrderDrinkFrame orderDrinkFrame = new OrderDrinkFrame(this.order);
 
-        } else if ("view my order".equals(e.getActionCommand())) {
+        } else if (e.getSource() == viewMyOrderButton) {
             ViewOrderFrame viewOrderFrame = new ViewOrderFrame(this.order);
 
-        } else if ("save current order".equals(e.getActionCommand())) {
+        } else if (e.getSource() == saveCurrentOrderButton) {
             saveCurrentOrder();
-        } else if ("load saved order".equals(e.getActionCommand())) {
+        } else if (e.getSource() == loadSavedOrderButton) {
             loadSavedOrder();
-        } else if ("finish and pay".equals(e.getActionCommand())) {
+        } else if (e.getSource() == finishAndPayButton) {
             finishAndPay();
             primaryFrame.dispose();
         }
@@ -194,11 +187,13 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         }
     }
 
+    // EFFECTS: displays successful order message with order total
     private void finishAndPay() {
         JOptionPane.showMessageDialog(primaryFrame, "Your order total is $" + this.order.getOrderTotal()
                         + ". Thank you for ordering!", "Completed Order", JOptionPane.PLAIN_MESSAGE);
     }
 
+    // EFFECTS: returns the current order
     public Order getOrder() {
         return this.order;
     }
@@ -218,6 +213,7 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
 
     }
 
+    // EFFECTS: when mouse enters button component, respective button turns green
     @Override
     public void mouseEntered(MouseEvent e) {
         Color buttonLightUpColor = new Color(43, 141, 43, 255);
@@ -243,6 +239,7 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         }
     }
 
+    // EFFECTS: when mouse leaves button component, button turns black
     @Override
     public void mouseExited(MouseEvent e) {
         orderNewDrinkButton.setOpaque(false);

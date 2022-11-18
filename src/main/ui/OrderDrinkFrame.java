@@ -11,7 +11,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+// Represents the frame where users can order a new drink
 public class OrderDrinkFrame extends JFrame implements ActionListener, MouseListener {
     private Order currentOrder;
     private JButton orderDrinkButton;
@@ -38,7 +41,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
     private Font pixelMPlusFont;
 
     // MODIFIES: this
-    // EFFECTS: creates and sets up frame
+    // EFFECTS: creates and sets up drink ordering frame
     public OrderDrinkFrame(Order order) {
         super("Order New Drink");
         this.currentOrder = order;
@@ -61,6 +64,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         this.setVisible(true);
     }
 
+    // EFFECTS: registers custom font and sets it up
     private void setUpFont() {
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -73,6 +77,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // EFFECTS: creates and returns panel with flavor prompt and flavor options
     private JPanel makeFlavorPanel() {
         JLabel flavorPrompt = new JLabel("What flavor would you like?", SwingConstants.CENTER);
         flavorPrompt.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
@@ -87,6 +92,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return flavorPanel;
     }
 
+    // EFFECTS: creates and returns panel with buttons for selecting drink flavor
     private JPanel makeFlavorButtonsPanel() {
         setUpFlavorButtons();
 
@@ -102,35 +108,30 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return flavorButtonsPanel;
     }
 
+    // EFFECTS: creates flavor buttons with ActionListener and font and groups them together
     private void setUpFlavorButtons() {
         classicButton = new JRadioButton("Classic Milk Tea");
-        classicButton.addActionListener(this);
-        classicButton.setFont(pixelMPlusFont);
         wintermelonButton = new JRadioButton("Wintermelon Milk Tea");
-        wintermelonButton.addActionListener(this);
-        wintermelonButton.setFont(pixelMPlusFont);
         matchaButton = new JRadioButton("Matcha Milk Tea");
-        matchaButton.addActionListener(this);
-        matchaButton.setFont(pixelMPlusFont);
         strawberryButton = new JRadioButton("Strawberry Green Tea");
-        strawberryButton.addActionListener(this);
-        strawberryButton.setFont(pixelMPlusFont);
         taroButton = new JRadioButton("Taro Milk Tea");
-        taroButton.addActionListener(this);
-        taroButton.setFont(pixelMPlusFont);
         thaiButton = new JRadioButton("Thai Milk Tea");
-        thaiButton.addActionListener(this);
-        thaiButton.setFont(pixelMPlusFont);
-
         ButtonGroup flavorButtons = new ButtonGroup();
-        flavorButtons.add(classicButton);
-        flavorButtons.add(wintermelonButton);
-        flavorButtons.add(matchaButton);
-        flavorButtons.add(strawberryButton);
-        flavorButtons.add(taroButton);
-        flavorButtons.add(thaiButton);
+        List<JRadioButton> buttons = new ArrayList<>();
+        buttons.add(classicButton);
+        buttons.add(wintermelonButton);
+        buttons.add(matchaButton);
+        buttons.add(strawberryButton);
+        buttons.add(taroButton);
+        buttons.add(thaiButton);
+        for (JRadioButton button : buttons) {
+            button.addActionListener(this);
+            button.setFont(pixelMPlusFont);
+            flavorButtons.add(button);
+        }
     }
 
+    // EFFECTS: creates and returns panel with size prompt and buttons for selecting drink size
     private JPanel makeSizePanel() {
         JLabel sizePrompt = new JLabel("What size would you like?", SwingConstants.CENTER);
         sizePrompt.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
@@ -147,6 +148,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return sizePanel;
     }
 
+    // EFFECTS: creates and returns panel with buttons for selecting size
     private JPanel makeSizeButtonsPanel() {
         JPanel sizeButtonsPanel = new JPanel();
         sizeButtonsPanel.setLayout(new GridLayout(1, 2));
@@ -159,6 +161,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return sizeButtonsPanel;
     }
 
+    // EFFECTS: sets up size buttons with ActionListener and font and adds them to button group
     private void setUpSizeButtons() {
         smallSizeButton = new JRadioButton("Small");
         smallSizeButton.addActionListener(this);
@@ -172,6 +175,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         sizeButtons.add(largeSizeButton);
     }
 
+    // EFFECTS: creates and returns panel with toppings prompt and buttons for selecting toppings
     private JPanel makeToppingsPanel() {
         JPanel toppingsPanel = new JPanel();
         toppingsPanel.setLayout(new GridLayout(2, 1));
@@ -187,6 +191,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return toppingsPanel;
     }
 
+    //  EFFECTS: creates and returns panel with buttons for selecting topping
     private JPanel makeToppingsButtonPanel() {
         JPanel toppingsButtonPanel = new JPanel();
         toppingsButtonPanel.setLayout(new GridLayout(5, 2));
@@ -212,6 +217,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return toppingsButtonPanel;
     }
 
+    // EFFECTS: creates buttons for topping one with ActionListener and font and adds them to button group
     private void setUpToppingOneButtons() {
         bobaOne = new JRadioButton("Boba (+$1)");
         bobaOne.addActionListener(this);
@@ -233,6 +239,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         toppingOneButtons.add(noToppingOne);
     }
 
+    // EFFECTS: creates buttons for topping two with ActionListener and font and adds them to button group
     private void setUpToppingTwoButtons() {
         bobaTwo = new JRadioButton("Boba (+$1)");
         bobaTwo.addActionListener(this);
@@ -254,6 +261,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         toppingTwoButtons.add(noToppingTwo);
     }
 
+    // EFFECTS: creates and returns panel with order drink button
     private JPanel makeOrderDrinkButtonPanel() {
         JPanel orderDrinkButtonPanel = new JPanel();
         orderDrinkButtonPanel.setBorder(BorderFactory.createEmptyBorder(20,20,30,20));
@@ -269,6 +277,8 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return orderDrinkButtonPanel;
     }
 
+    // EFFECTS: if orderDrinkButton is pressed, adds drink with given flavor, size and toppings, to order and
+    //          displays pane with successful order message and closes the frame
     @Override
     public void actionPerformed(ActionEvent e) {
         assessFlavor(e);
@@ -289,6 +299,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // EFFECTS: sets the flavor the drink based on user selection
     private void assessFlavor(ActionEvent e) {
         if (e.getSource() == classicButton) {
             flavor = "classic milk tea";
@@ -305,6 +316,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // EFFECTS: sets the size of the drink based on user selection
     private void assessSize(ActionEvent e) {
         if (e.getSource() == smallSizeButton) {
             size = 1;
@@ -313,6 +325,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // EFFECTS: sets the toppings of the drink based on user selection
     private void assessTopping(ActionEvent e) {
         if (e.getSource() == bobaOne) {
             topping1 = "boba";
@@ -349,12 +362,14 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
 
     }
 
+    // EFFECTS: when the mouse enters the orderDrinkButton component, the color changes to green
     @Override
     public void mouseEntered(MouseEvent e) {
         orderDrinkButton.setOpaque(true);
         orderDrinkButton.setForeground(new Color(43, 141, 43, 255));
     }
 
+    // EFFECTS: when the mouse leaves the orderDrinkButton component, the color changes to black
     @Override
     public void mouseExited(MouseEvent e) {
         orderDrinkButton.setOpaque(false);
