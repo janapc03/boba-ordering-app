@@ -166,8 +166,14 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
             jsonWriter.open();
             jsonWriter.write(this.order);
             jsonWriter.close();
-            JOptionPane.showMessageDialog(primaryFrame, "Your order has been saved!", "Save Successful",
-                    JOptionPane.PLAIN_MESSAGE);
+            JLabel successfulSaveLabel = new JLabel("Your order has been saved!");
+            successfulSaveLabel.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JOptionPane successfulSavePane = new JOptionPane(successfulSaveLabel, JOptionPane.PLAIN_MESSAGE);
+            JPanel successfulSavePanel = (JPanel)successfulSavePane.getComponent(1);
+            JButton okButton = (JButton)successfulSavePanel.getComponent(0);
+            okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JDialog dialog = successfulSavePane.createDialog(null,"Save Successful");
+            dialog.setVisible(true);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -180,8 +186,14 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
     private void loadSavedOrder() {
         try {
             this.order = jsonReader.read();
-            JOptionPane.showMessageDialog(primaryFrame, "Your order has been loaded!", "Load Successful",
-                    JOptionPane.PLAIN_MESSAGE);
+            JLabel successfulLoadLabel = new JLabel("Your order has been loaded!");
+            successfulLoadLabel.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JOptionPane successfulLoadPane = new JOptionPane(successfulLoadLabel, JOptionPane.PLAIN_MESSAGE);
+            JPanel successfulLoadPanel = (JPanel)successfulLoadPane.getComponent(1);
+            JButton okButton = (JButton)successfulLoadPanel.getComponent(0);
+            okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JDialog dialog = successfulLoadPane.createDialog(null,"Load Successful");
+            dialog.setVisible(true);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
@@ -189,8 +201,15 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
 
     // EFFECTS: displays successful order message with order total
     private void finishAndPay() {
-        JOptionPane.showMessageDialog(primaryFrame, "Your order total is $" + this.order.getOrderTotal()
-                        + ". Thank you for ordering!", "Completed Order", JOptionPane.PLAIN_MESSAGE);
+        JLabel successfulPayLabel = new JLabel("Your order total is $" + this.order.getOrderTotal()
+                + ". Thank you for ordering!");
+        successfulPayLabel.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+        JOptionPane successfulPayPane = new JOptionPane(successfulPayLabel, JOptionPane.PLAIN_MESSAGE);
+        JPanel successfulPayPanel = (JPanel)successfulPayPane.getComponent(1);
+        JButton okButton = (JButton)successfulPayPanel.getComponent(0);
+        okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+        JDialog dialog = successfulPayPane.createDialog(null,"Completed Order");
+        dialog.setVisible(true);
     }
 
     // EFFECTS: returns the current order

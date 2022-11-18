@@ -83,7 +83,8 @@ public class ViewOrderFrame extends JFrame {
         return drinkPanel;
     }
 
-    // EFFECTS: sets the image icon for the JLabel of the current drink in the order to match the flavor of the drink
+    // EFFECTS: sets and returns the image icon for the JLabel of the current drink in the order to match the
+    //          flavor of the drink
     private ImageIcon setImageIcon(Drink drink) {
         ImageIcon bobaImage;
         if (drink.getFlavor() == "classic milk tea" || drink.getFlavor() == "wintermelon milk tea") {

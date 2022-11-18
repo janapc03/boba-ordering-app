@@ -293,8 +293,14 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
                 currentDrink.addTopping(topping2);
             }
             this.currentOrder.addDrink(currentDrink);
-            JOptionPane.showMessageDialog(this, "This drink has been added to the order!",
-                    "Added to Order", JOptionPane.PLAIN_MESSAGE);
+            JLabel successfulOrderLabel = new JLabel("This drink has been added to the order!");
+            successfulOrderLabel.setFont(pixelMPlusFont);
+            JOptionPane successfulOrderPane = new JOptionPane(successfulOrderLabel, JOptionPane.PLAIN_MESSAGE);
+            JPanel successfulOrderPanel = (JPanel)successfulOrderPane.getComponent(1);
+            JButton okButton = (JButton)successfulOrderPanel.getComponent(0);
+            okButton.setFont(pixelMPlusFont);
+            JDialog dialog = successfulOrderPane.createDialog(null,"Added to Order");
+            dialog.setVisible(true);
             this.dispose();
         }
     }
