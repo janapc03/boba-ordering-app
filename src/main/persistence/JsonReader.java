@@ -64,8 +64,7 @@ public class JsonReader {
     private void addDrink(Order order, JSONObject jsonObject) {
         String flavor = jsonObject.getString("flavor");
         int size = jsonObject.getInt("size");
-        int price = jsonObject.getInt("price");
-        JSONArray toppings = jsonObject.getJSONArray("toppings"); ///!!!
+        JSONArray toppings = jsonObject.getJSONArray("toppings");
         Drink drink = new Drink(flavor, size);
         if (toppings.length() == 2) {
             drink.addTopping(toppings.getString(0));

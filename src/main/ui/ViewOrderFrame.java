@@ -87,13 +87,15 @@ public class ViewOrderFrame extends JFrame {
     //          flavor of the drink
     private ImageIcon setImageIcon(Drink drink) {
         ImageIcon bobaImage;
-        if (drink.getFlavor() == "classic milk tea" || drink.getFlavor() == "wintermelon milk tea") {
+        if (drink.getFlavor().equals("classic milk tea")) {
             bobaImage = new ImageIcon("src/main/ui/images/ClassicBoba.png");
-        } else if (drink.getFlavor() == "matcha milk tea") {
+        } else if (drink.getFlavor().equals("wintermelon milk tea")) {
+            bobaImage = new ImageIcon("src/main/ui/images/ClassicBoba.png");
+        } else if (drink.getFlavor().equals("matcha milk tea")) {
             bobaImage = new ImageIcon("src/main/ui/images/MatchaBoba.png");
-        } else if (drink.getFlavor() == "strawberry green tea") {
+        } else if (drink.getFlavor().equals("strawberry green tea")) {
             bobaImage = new ImageIcon("src/main/ui/images/StrawberryBoba.png");
-        } else if (drink.getFlavor() == "taro milk tea") {
+        } else if (drink.getFlavor().equals("taro milk tea")) {
             bobaImage = new ImageIcon("src/main/ui/images/TaroBoba.png");
         } else {
             bobaImage = new ImageIcon("src/main/ui/images/ThaiBoba.png");
