@@ -146,6 +146,9 @@ public class ViewOrderFrame extends JFrame {
             toppingsString = " with " + toppings.get(0);
             if (toppings.size() == 2) {
                 toppingsString = toppingsString + " and " + toppings.get(1);
+                if (toppings.get(0) == toppings.get(1)) {
+                    toppingsString = " with extra " + toppings.get(0);
+                }
             }
             return toppingsString;
         }
