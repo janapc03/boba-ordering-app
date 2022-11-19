@@ -77,6 +77,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // MODIFIES: flavorPanel
     // EFFECTS: creates and returns panel with flavor prompt and flavor options
     private JPanel makeFlavorPanel() {
         JLabel flavorPrompt = new JLabel("What flavor would you like?", SwingConstants.CENTER);
@@ -92,6 +93,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return flavorPanel;
     }
 
+    // MODIFIES: flavorButtonsPanel;
     // EFFECTS: creates and returns panel with buttons for selecting drink flavor
     private JPanel makeFlavorButtonsPanel() {
         setUpFlavorButtons();
@@ -131,6 +133,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         }
     }
 
+    // MODIFIES: sizePanel
     // EFFECTS: creates and returns panel with size prompt and buttons for selecting drink size
     private JPanel makeSizePanel() {
         JLabel sizePrompt = new JLabel("What size would you like?", SwingConstants.CENTER);
@@ -148,6 +151,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return sizePanel;
     }
 
+    // MODIFIES: sizeButtonsPanel
     // EFFECTS: creates and returns panel with buttons for selecting size
     private JPanel makeSizeButtonsPanel() {
         JPanel sizeButtonsPanel = new JPanel();
@@ -175,6 +179,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         sizeButtons.add(largeSizeButton);
     }
 
+    // MODIFIES: toppingsPanel
     // EFFECTS: creates and returns panel with toppings prompt and buttons for selecting toppings
     private JPanel makeToppingsPanel() {
         JPanel toppingsPanel = new JPanel();
@@ -191,6 +196,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return toppingsPanel;
     }
 
+    // MODIFIES: toppingsButtonPanel
     //  EFFECTS: creates and returns panel with buttons for selecting topping
     private JPanel makeToppingsButtonPanel() {
         JPanel toppingsButtonPanel = new JPanel();
@@ -261,6 +267,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         toppingTwoButtons.add(noToppingTwo);
     }
 
+    // MODIFIES: orderDrinkButtonPanel
     // EFFECTS: creates and returns panel with order drink button
     private JPanel makeOrderDrinkButtonPanel() {
         JPanel orderDrinkButtonPanel = new JPanel();
@@ -277,6 +284,7 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
         return orderDrinkButtonPanel;
     }
 
+    // MODIFIES: this
     // EFFECTS: if orderDrinkButton is pressed, adds drink with given flavor, size and toppings, to order and
     //          displays pane with successful order message and closes the frame
     @Override

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+// Represents the frame where a user can remove a drink from their order
 public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseListener {
     private Order currentOrder;
     private Font pixelMPlusFont;
@@ -20,7 +21,8 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
     private Drink currentDrink;
     private JRadioButton currentDrinkButton;
 
-
+    // MODIFIES: this
+    // EFFECTS: creates and sets up the frame for removing a drink
     public RemoveDrinkFrame(Order order) {
         super("Remove a Drink");
         this.currentOrder = order;
@@ -49,6 +51,8 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
         }
     }
 
+    // MODIFIES: removeDrinkPanel
+    // EFFECTS: creates and returns the removeDrinkPanel
     private JPanel makeRemoveDrinkPanel() {
         JPanel removeDrinkPanel = new JPanel();
         JLabel removePrompt = new JLabel("Which drink would you like to remove?");
@@ -66,14 +70,15 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
         removeDrinkPanel.setSize(200, 300);
 
         removeDrinkPanel.add(removePrompt);
-        removeDrinkPanel.add(displayOrder());
+        removeDrinkPanel.add(makeDisplayOrderPanel());
         removeDrinkPanel.add(removeDrinkButton);
 
         return removeDrinkPanel;
     }
 
-    // EFFECTS: creates and returns panel with each drink in order printed on it
-    private JPanel displayOrder() {
+    // MODIFIES: drinkPanel
+    // EFFECTS: creates and returns panel with each drink in order displayed as a JRadioButton on it
+    private JPanel makeDisplayOrderPanel() {
         JPanel drinkPanel = new JPanel();
         ButtonGroup buttonGroup = new ButtonGroup();
         drinkPanel.setLayout(new GridLayout(0, 1));
@@ -127,6 +132,9 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes user's chosen drink from the order, closes the frame and displays confirmation message, then
+    //          reopens viewOrderFrame
     @Override
     public void actionPerformed(ActionEvent e) {
         assessDrink(e);
@@ -147,6 +155,8 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
         }
     }
 
+    // MODIFIES: currentDrink
+    // EFFECTS: sets user's drink choice as the drink to remove
     private void assessDrink(ActionEvent e) {
         for (Drink drink : this.currentOrder.getOrder()) {
             if (e.getActionCommand().equals("drink " + this.currentOrder.getOrder().indexOf(drink))) {
@@ -170,12 +180,14 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
 
     }
 
+    // EFFECTS: when the mouse enters the removeDrinkButton component, the color changes to green
     @Override
     public void mouseEntered(MouseEvent e) {
         removeDrinkButton.setOpaque(true);
         removeDrinkButton.setForeground(new Color(43, 141, 43, 255));
     }
 
+    // EFFECTS: when the mouse leaves the orderDrinkButton component, the color changes to black
     @Override
     public void mouseExited(MouseEvent e) {
         removeDrinkButton.setOpaque(false);

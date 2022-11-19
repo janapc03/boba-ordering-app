@@ -49,6 +49,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         }
     }
 
+    // MODIFIES: yourOrderPanel
     // EFFECTS: creates and returns order panel with all components added
     private JPanel makeYourOrderPanel() {
         JLabel yourOrder = new JLabel("Your Order:", JLabel.CENTER);
@@ -66,15 +67,16 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
 
         yourOrder.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         yourOrderPanel.add(yourOrder);
-        yourOrderPanel.add(displayOrder());
+        yourOrderPanel.add(makeDisplayOrderPanel());
         yourOrderPanel.add(makeOrderSummaryPanel());
         yourOrderPanel.add(removeDrinkButton);
 
         return yourOrderPanel;
     }
 
+    // MODIFIES: drinkPanel
     // EFFECTS: creates and returns panel with each drink in order printed on it
-    private JPanel displayOrder() {
+    private JPanel makeDisplayOrderPanel() {
         JPanel drinkPanel = new JPanel();
         drinkPanel.setLayout(new GridLayout(0,1));
         drinkPanel.setBorder(BorderFactory.createEmptyBorder(40,20,20,20));
@@ -94,6 +96,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         return drinkPanel;
     }
 
+    // MODIFIES: bobaImage
     // EFFECTS: sets and returns the image icon for the JLabel of the current drink in the order to match the
     //          flavor of the drink
     private ImageIcon setImageIcon(Drink drink) {
@@ -123,6 +126,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         }
     }
 
+    // MODIFIES: orderSummaryPanel
     // EFFECTS: creates returns panel with summary of order number of drinks and total
     private JPanel makeOrderSummaryPanel() {
         JPanel orderSummaryPanel = new JPanel();
@@ -165,6 +169,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         }
     }
 
+    // EFFECTS: opens up a removeDrinkFrame when the remove drink button is clicked
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == removeDrinkButton) {
@@ -188,12 +193,14 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
 
     }
 
+    // EFFECTS: when the mouse enters the removeDrinkButton component, the color changes to green
     @Override
     public void mouseEntered(MouseEvent e) {
         removeDrinkButton.setOpaque(true);
         removeDrinkButton.setForeground(new Color(43, 141, 43, 255));
     }
 
+    // EFFECTS: when the mouse leaves the orderDrinkButton component, the color changes to black
     @Override
     public void mouseExited(MouseEvent e) {
         removeDrinkButton.setOpaque(false);
