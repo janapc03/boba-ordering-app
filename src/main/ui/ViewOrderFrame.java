@@ -19,6 +19,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     private JPanel yourOrderPanel;
     private Font pixelMPlusFont;
     private JButton removeDrinkButton;
+    private JButton closeButton;
 
     // MODIFIES: this
     // EFFECTS: creates and sets up ordering viewing frame
@@ -53,11 +54,8 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     // EFFECTS: creates and returns order panel with all components added
     private JPanel makeYourOrderPanel() {
         JLabel yourOrder = new JLabel("Your Order:", JLabel.CENTER);
-        removeDrinkButton = new JButton("Remove a drink");
-        removeDrinkButton.setFont(pixelMPlusFont.deriveFont(15f));
-        removeDrinkButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        removeDrinkButton.addActionListener(this);
-        removeDrinkButton.addMouseListener(this);
+
+
         yourOrder.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
         yourOrderPanel = new JPanel();
 
@@ -69,7 +67,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         yourOrderPanel.add(yourOrder);
         yourOrderPanel.add(makeDisplayOrderPanel());
         yourOrderPanel.add(makeOrderSummaryPanel());
-        yourOrderPanel.add(removeDrinkButton);
+        yourOrderPanel.add(makeBottomButtonsPanel());
 
         return yourOrderPanel;
     }
@@ -147,6 +145,25 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         return orderSummaryPanel;
     }
 
+    private JPanel makeBottomButtonsPanel() {
+        JPanel bottomButtonsPanel = new JPanel();
+        bottomButtonsPanel.setLayout(new BoxLayout(bottomButtonsPanel, BoxLayout.X_AXIS));
+        removeDrinkButton = new JButton("Remove a drink");
+        removeDrinkButton.setFont(pixelMPlusFont.deriveFont(15f));
+        removeDrinkButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        removeDrinkButton.addActionListener(this);
+        removeDrinkButton.addMouseListener(this);
+        closeButton = new JButton("Close");
+        closeButton.setFont(pixelMPlusFont.deriveFont(15f));
+        closeButton.addActionListener(this);
+        closeButton.addMouseListener(this);
+
+        bottomButtonsPanel.add(removeDrinkButton);
+        bottomButtonsPanel.add(closeButton);
+
+        return bottomButtonsPanel;
+    }
+
     // EFFECTS: if the drink has no toppings:
     //              - returns an empty string
     //          if the drink has 1 topping:
@@ -176,6 +193,9 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
             RemoveDrinkFrame removeDrinkFrame = new RemoveDrinkFrame(this.currentOrder);
             this.setVisible(false);
         }
+        if (e.getSource() == closeButton) {
+            this.dispose();
+        }
     }
 
     @Override
@@ -196,8 +216,15 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     // EFFECTS: when the mouse enters the removeDrinkButton component, the color changes to green
     @Override
     public void mouseEntered(MouseEvent e) {
-        removeDrinkButton.setOpaque(true);
-        removeDrinkButton.setForeground(new Color(43, 141, 43, 255));
+        Color buttonLightUpColor = new Color(43, 141, 43, 255);
+        if (e.getSource() == removeDrinkButton) {
+            removeDrinkButton.setOpaque(true);
+            removeDrinkButton.setForeground(buttonLightUpColor);
+        }
+        if (e.getSource() == closeButton) {
+            closeButton.setOpaque(true);
+            closeButton.setForeground(buttonLightUpColor);
+        }
     }
 
     // EFFECTS: when the mouse leaves the orderDrinkButton component, the color changes to black
@@ -205,5 +232,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     public void mouseExited(MouseEvent e) {
         removeDrinkButton.setOpaque(false);
         removeDrinkButton.setForeground(Color.black);
+        closeButton.setOpaque(false);
+        closeButton.setForeground(Color.black);
     }
 }

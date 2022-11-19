@@ -1,41 +1,12 @@
 {
-    "drinks": [
-        {
-            "flavor": "wintermelon milk tea",
-            "size": 2,
-            "price": 7,
-            "toppings": [
-                "pudding",
-                "jelly"
-            ]
-        },
-        {
-            "flavor": "matcha milk tea",
-            "size": 1,
-            "price": 5,
-            "toppings": []
-        },
-        {
-            "flavor": "strawberry green tea",
-            "size": 2,
-            "price": 6,
-            "toppings": ["boba"]
-        },
-        {
-            "flavor": "taro milk tea",
-            "size": 1,
-            "price": 7,
-            "toppings": [
-                "pudding",
-                "jelly"
-            ]
-        },
-        {
-            "flavor": "thai milk tea",
-            "size": 1,
-            "price": 6,
-            "toppings": ["pudding"]
-        }
-    ],
+    "drinks": [{
+        "flavor": "strawberry green tea",
+        "size": 2,
+        "price": 7,
+        "toppings": [
+            "boba",
+            "jelly"
+        ]
+    }],
     "name": "Your Order"
 }

@@ -139,20 +139,30 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
     public void actionPerformed(ActionEvent e) {
         assessDrink(e);
         if (e.getSource() == removeDrinkButton) {
+            if (this.currentOrder.getOrder().size() == 1) {
+                makePopupMessage("Drink remove failed: cannot remove last drink in order",
+                        "Failed to Remove Drink");
+            } else {
+                makePopupMessage("This drink has been removed!", "Completed Order");
+            }
             this.currentOrder.removeDrink(currentDrink);
             ViewOrderFrame viewOrderFrame = new ViewOrderFrame(this.currentOrder);
             viewOrderFrame.setVisible(true);
             this.dispose();
 
-            JLabel successfulRemove = new JLabel("This drink has been removed!");
-            successfulRemove.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
-            JOptionPane successfulRemovePane = new JOptionPane(successfulRemove, JOptionPane.PLAIN_MESSAGE);
-            JPanel successfulRemovePanel = (JPanel) successfulRemovePane.getComponent(1);
-            JButton okButton = (JButton) successfulRemovePanel.getComponent(0);
-            okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
-            JDialog dialog = successfulRemovePane.createDialog(null, "Completed Order");
-            dialog.setVisible(true);
         }
+    }
+
+    // EFFECTS: creates a popup message for the user
+    private void makePopupMessage(String text, String title) {
+        JLabel messageLabel = new JLabel(text);
+        messageLabel.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+        JOptionPane messagePane = new JOptionPane(messageLabel, JOptionPane.PLAIN_MESSAGE);
+        JPanel messagePanel = (JPanel) messagePane.getComponent(1);
+        JButton okButton = (JButton) messagePanel.getComponent(0);
+        okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+        JDialog dialog = messagePane.createDialog(null, title);
+        dialog.setVisible(true);
     }
 
     // MODIFIES: currentDrink
