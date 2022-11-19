@@ -13,24 +13,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-// Represents the frame where user views their order
-public class ViewOrderFrame extends JFrame implements ActionListener, MouseListener {
+public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseListener {
     private Order currentOrder;
-    private JPanel yourOrderPanel;
     private Font pixelMPlusFont;
     private JButton removeDrinkButton;
+    private Drink currentDrink;
+    private JRadioButton currentDrinkButton;
 
-    // MODIFIES: this
-    // EFFECTS: creates and sets up ordering viewing frame
-    public ViewOrderFrame(Order order) {
-        super("My Order");
+
+    public RemoveDrinkFrame(Order order) {
+        super("Remove a Drink");
         this.currentOrder = order;
+        currentDrink = null;
         setUpFont();
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(200,300);
+        this.setSize(200, 300);
 
-        this.add(makeYourOrderPanel());
+        this.add(makeRemoveDrinkPanel());
 
         this.pack();
         this.setVisible(true);
@@ -49,42 +49,44 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         }
     }
 
-    // EFFECTS: creates and returns order panel with all components added
-    private JPanel makeYourOrderPanel() {
-        JLabel yourOrder = new JLabel("Your Order:", JLabel.CENTER);
-        removeDrinkButton = new JButton("Remove a drink");
+    private JPanel makeRemoveDrinkPanel() {
+        JPanel removeDrinkPanel = new JPanel();
+        JLabel removePrompt = new JLabel("Which drink would you like to remove?");
+        removePrompt.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        removePrompt.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
+
+        removeDrinkButton = new JButton("Remove Drink");
         removeDrinkButton.setFont(pixelMPlusFont.deriveFont(15f));
-        removeDrinkButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         removeDrinkButton.addActionListener(this);
         removeDrinkButton.addMouseListener(this);
-        yourOrder.setFont(pixelMPlusFont.deriveFont(Font.BOLD));
-        yourOrderPanel = new JPanel();
+        removeDrinkButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
-        yourOrderPanel.setLayout(new BoxLayout(yourOrderPanel, BoxLayout.Y_AXIS));
-        yourOrderPanel.setSize(200,300);
-        yourOrderPanel.setBorder(BorderFactory.createEmptyBorder(40,20,60,20));
+        removeDrinkPanel.setLayout(new BoxLayout(removeDrinkPanel, BoxLayout.Y_AXIS));
+        removeDrinkPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 30, 20));
+        removeDrinkPanel.setSize(200, 300);
 
-        yourOrder.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        yourOrderPanel.add(yourOrder);
-        yourOrderPanel.add(displayOrder());
-        yourOrderPanel.add(makeOrderSummaryPanel());
-        yourOrderPanel.add(removeDrinkButton);
+        removeDrinkPanel.add(removePrompt);
+        removeDrinkPanel.add(displayOrder());
+        removeDrinkPanel.add(removeDrinkButton);
 
-        return yourOrderPanel;
+        return removeDrinkPanel;
     }
 
     // EFFECTS: creates and returns panel with each drink in order printed on it
     private JPanel displayOrder() {
         JPanel drinkPanel = new JPanel();
-        drinkPanel.setLayout(new GridLayout(0,1));
-        drinkPanel.setBorder(BorderFactory.createEmptyBorder(40,20,20,20));
+        ButtonGroup buttonGroup = new ButtonGroup();
+        drinkPanel.setLayout(new GridLayout(0, 1));
+        drinkPanel.setBorder(BorderFactory.createEmptyBorder(40, 20, 20, 20));
         for (Drink drink : this.currentOrder.getOrder()) {
             String drinkDescription = " A " + intToSize(drink.getSize()) + " " + drink.getFlavor()
                     + toStringToppings(drink.getToppings()) + " ($" + drink.getPrice() + ")";
-            JLabel currentDrink = new JLabel(drinkDescription);
-            currentDrink.setIcon(setImageIcon(drink));
-            currentDrink.setFont(pixelMPlusFont.deriveFont(15f));
-            drinkPanel.add(currentDrink);
+            currentDrinkButton = new JRadioButton(drinkDescription);
+            currentDrinkButton.addActionListener(this);
+            currentDrinkButton.setActionCommand("drink " + this.currentOrder.getOrder().indexOf(drink));
+            currentDrinkButton.setFont(pixelMPlusFont.deriveFont(15f));
+            buttonGroup.add(currentDrinkButton);
+            drinkPanel.add(currentDrinkButton);
         }
         if (currentOrder.getNumDrinks() == 0) {
             JLabel emptyOrderLabel = new JLabel("Your order is currently empty!");
@@ -94,26 +96,6 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         return drinkPanel;
     }
 
-    // EFFECTS: sets and returns the image icon for the JLabel of the current drink in the order to match the
-    //          flavor of the drink
-    private ImageIcon setImageIcon(Drink drink) {
-        ImageIcon bobaImage;
-        if (drink.getFlavor().equals("classic milk tea")) {
-            bobaImage = new ImageIcon("src/main/ui/images/ClassicBoba.png");
-        } else if (drink.getFlavor().equals("wintermelon milk tea")) {
-            bobaImage = new ImageIcon("src/main/ui/images/ClassicBoba.png");
-        } else if (drink.getFlavor().equals("matcha milk tea")) {
-            bobaImage = new ImageIcon("src/main/ui/images/MatchaBoba.png");
-        } else if (drink.getFlavor().equals("strawberry green tea")) {
-            bobaImage = new ImageIcon("src/main/ui/images/StrawberryBoba.png");
-        } else if (drink.getFlavor().equals("taro milk tea")) {
-            bobaImage = new ImageIcon("src/main/ui/images/TaroBoba.png");
-        } else {
-            bobaImage = new ImageIcon("src/main/ui/images/ThaiBoba.png");
-        }
-        return bobaImage;
-    }
-
     // EFFECTS: creates and returns a string "small" or "large" depending on the int representation of the drink's size
     private String intToSize(int size) {
         if (size == 1) {
@@ -121,26 +103,6 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         } else {
             return "large";
         }
-    }
-
-    // EFFECTS: creates returns panel with summary of order number of drinks and total
-    private JPanel makeOrderSummaryPanel() {
-        JPanel orderSummaryPanel = new JPanel();
-        orderSummaryPanel.setLayout(new GridLayout(2, 1));
-        orderSummaryPanel.setBorder(BorderFactory.createEmptyBorder(10,20,0,20));
-
-        String numDrinksString = "Total Number of Drinks: " + currentOrder.getNumDrinks();
-        JLabel numDrinksLabel = new JLabel(numDrinksString);
-        numDrinksLabel.setFont(pixelMPlusFont.deriveFont(17f));
-
-        String orderTotalString = "Order Total: $" + currentOrder.getOrderTotal();
-        JLabel orderTotalLabel = new JLabel(orderTotalString);
-        orderTotalLabel.setFont(pixelMPlusFont.deriveFont(17f));
-
-        orderSummaryPanel.add(numDrinksLabel);
-        orderSummaryPanel.add(orderTotalLabel);
-
-        return orderSummaryPanel;
     }
 
     // EFFECTS: if the drink has no toppings:
@@ -167,9 +129,29 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        assessDrink(e);
         if (e.getSource() == removeDrinkButton) {
-            RemoveDrinkFrame removeDrinkFrame = new RemoveDrinkFrame(this.currentOrder);
-            this.setVisible(false);
+            this.currentOrder.removeDrink(currentDrink);
+            ViewOrderFrame viewOrderFrame = new ViewOrderFrame(this.currentOrder);
+            viewOrderFrame.setVisible(true);
+            this.dispose();
+
+            JLabel successfulRemove = new JLabel("This drink has been removed!");
+            successfulRemove.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JOptionPane successfulRemovePane = new JOptionPane(successfulRemove, JOptionPane.PLAIN_MESSAGE);
+            JPanel successfulRemovePanel = (JPanel) successfulRemovePane.getComponent(1);
+            JButton okButton = (JButton) successfulRemovePanel.getComponent(0);
+            okButton.setFont(pixelMPlusFont.deriveFont(Font.PLAIN));
+            JDialog dialog = successfulRemovePane.createDialog(null, "Completed Order");
+            dialog.setVisible(true);
+        }
+    }
+
+    private void assessDrink(ActionEvent e) {
+        for (Drink drink : this.currentOrder.getOrder()) {
+            if (e.getActionCommand().equals("drink " + this.currentOrder.getOrder().indexOf(drink))) {
+                currentDrink = drink;
+            }
         }
     }
 

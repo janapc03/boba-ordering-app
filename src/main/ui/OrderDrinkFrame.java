@@ -296,8 +296,8 @@ public class OrderDrinkFrame extends JFrame implements ActionListener, MouseList
             JLabel successfulOrderLabel = new JLabel("This drink has been added to the order!");
             successfulOrderLabel.setFont(pixelMPlusFont);
             JOptionPane successfulOrderPane = new JOptionPane(successfulOrderLabel, JOptionPane.PLAIN_MESSAGE);
-            JPanel successfulOrderPanel = (JPanel)successfulOrderPane.getComponent(1);
-            JButton okButton = (JButton)successfulOrderPanel.getComponent(0);
+            JPanel successPanel = (JPanel)successfulOrderPane.getComponent(1);
+            JButton okButton = (JButton)successPanel.getComponent(0);
             okButton.setFont(pixelMPlusFont);
             JDialog dialog = successfulOrderPane.createDialog(null,"Added to Order");
             dialog.setVisible(true);
