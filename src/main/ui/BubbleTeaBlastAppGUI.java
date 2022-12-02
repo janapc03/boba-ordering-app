@@ -38,6 +38,8 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
     private JsonReader jsonReader;
     private Font bubbleWorldFont;
     private Font pixelMPlusFont;
+    private OrderDrinkFrame orderDrinkFrame;
+    private ViewOrderFrame viewOrderFrame;
 
     // EFFECTS: constructs the primary frame with all components added
     public BubbleTeaBlastAppGUI() {
@@ -144,10 +146,10 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == orderNewDrinkButton) {
-            OrderDrinkFrame orderDrinkFrame = new OrderDrinkFrame(this.order);
+            orderDrinkFrame = new OrderDrinkFrame(this.order);
 
         } else if (e.getSource() == viewMyOrderButton) {
-            ViewOrderFrame viewOrderFrame = new ViewOrderFrame(this.order);
+            viewOrderFrame = new ViewOrderFrame(this.order);
 
         } else if (e.getSource() == saveCurrentOrderButton) {
             saveCurrentOrder();

@@ -5,7 +5,7 @@ import java.util.Date;
 
 // This class was taken from AlarmSystem
 // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
-
+// Represents an event that occurs while the application is running
 /**
  * Represents an alarm system event.
  */

@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents the primary frame of the application
 public class PrimaryFrame extends JFrame {
 
     // MODIFIES: this

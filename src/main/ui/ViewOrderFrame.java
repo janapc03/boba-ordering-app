@@ -20,6 +20,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     private Font pixelMPlusFont;
     private JButton removeDrinkButton;
     private JButton closeButton;
+    private RemoveDrinkFrame removeDrinkFrame;
 
     // MODIFIES: this
     // EFFECTS: creates and sets up ordering viewing frame
@@ -125,7 +126,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     }
 
     // MODIFIES: orderSummaryPanel
-    // EFFECTS: creates returns panel with summary of order number of drinks and total
+    // EFFECTS: creates and returns panel with summary of order number of drinks and total
     private JPanel makeOrderSummaryPanel() {
         JPanel orderSummaryPanel = new JPanel();
         orderSummaryPanel.setLayout(new GridLayout(2, 1));
@@ -145,6 +146,8 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
         return orderSummaryPanel;
     }
 
+    // MODIFIES: bottomButtonsPanel
+    // EFFECTS: creates and returns panel with removeDrinkButton and closeButton
     private JPanel makeBottomButtonsPanel() {
         JPanel bottomButtonsPanel = new JPanel();
         bottomButtonsPanel.setLayout(new BoxLayout(bottomButtonsPanel, BoxLayout.X_AXIS));
@@ -190,7 +193,7 @@ public class ViewOrderFrame extends JFrame implements ActionListener, MouseListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == removeDrinkButton) {
-            RemoveDrinkFrame removeDrinkFrame = new RemoveDrinkFrame(this.currentOrder);
+            removeDrinkFrame = new RemoveDrinkFrame(this.currentOrder);
             this.setVisible(false);
         }
         if (e.getSource() == closeButton) {

@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 // This class was taken from AlarmSystem
 // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
-
+// Represents a collection of events that occur while the application is running
 /**
  * Represents a log of alarm system events.
  * We use the Singleton Design Pattern to ensure that there is only

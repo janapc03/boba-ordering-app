@@ -31,3 +31,8 @@ components by adding a new drink to your order and then viewing your order.
 [Added a large taro milk tea with [boba, pudding] to this order,
 Added a small wintermelon milk tea with [pudding] to this order,
 Removed a small wintermelon milk tea with [pudding] from this order]
+
+## *Phase 4: Task 3*
+- Make Order a singleton class to reduce excessive association between classes
+- Refactor methods (in all classes) so that they each only have one job because some methods are currently too complex
+- Remove PrimaryFrame class and incorporate it into BubbleTeaBlastAppGUI instead
