@@ -1,5 +1,6 @@
 package ui;
 
+import model.EventLog;
 import model.Order;
 import persistence.JsonReader;
 import persistence.JsonWriter;
@@ -155,6 +156,7 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         } else if (e.getSource() == finishAndPayButton) {
             finishAndPay();
             primaryFrame.dispose();
+            System.out.println(getEventDescriptions());
         }
     }
 
@@ -271,5 +273,19 @@ public class BubbleTeaBlastAppGUI implements ActionListener, MouseListener {
         loadSavedOrderButton.setForeground(Color.black);
         finishAndPayButton.setOpaque(false);
         finishAndPayButton.setForeground(Color.black);
+    }
+
+    // MODIFIES: eventDescriptions
+    // EFFECTS: returns the description of each event in the EventLog
+    public ArrayList<String> getEventDescriptions() {
+        ArrayList<String> eventDescriptions = new ArrayList<>();
+        for (model.Event e : EventLog.getInstance()) {
+            if (eventDescriptions.size() == 0) {
+                eventDescriptions.add(e.getDescription());
+            } else {
+                eventDescriptions.add("\n" + e.getDescription());
+            }
+        }
+        return eventDescriptions;
     }
 }

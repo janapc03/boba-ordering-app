@@ -139,17 +139,19 @@ public class RemoveDrinkFrame extends JFrame implements ActionListener, MouseLis
     public void actionPerformed(ActionEvent e) {
         assessDrink(e);
         if (e.getSource() == removeDrinkButton) {
-            if (this.currentOrder.getOrder().size() == 1) {
+            if (currentDrink == null) {
+                makePopupMessage("Drink remove failed: you must select a drink",
+                        "No Drink Selected");
+            } else if (this.currentOrder.getOrder().size() == 1) {
                 makePopupMessage("Drink remove failed: cannot remove last drink in order",
                         "Failed to Remove Drink");
-            } else {
+            }
+            if (this.currentOrder.removeDrink(currentDrink)) {
                 makePopupMessage("This drink has been removed!", "Completed Order");
             }
-            this.currentOrder.removeDrink(currentDrink);
             ViewOrderFrame viewOrderFrame = new ViewOrderFrame(this.currentOrder);
             viewOrderFrame.setVisible(true);
             this.dispose();
-
         }
     }
 

@@ -1,11 +1,11 @@
 {
     "drinks": [{
-        "flavor": "strawberry green tea",
-        "size": 2,
+        "flavor": "taro milk tea",
+        "size": 1,
         "price": 7,
         "toppings": [
             "boba",
-            "jelly"
+            "boba"
         ]
     }],
     "name": "Your Order"

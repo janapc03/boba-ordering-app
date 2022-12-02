@@ -26,3 +26,8 @@ button on the main menu and then clicking the "Remove a Drink" button at the bot
 components by adding a new drink to your order and then viewing your order.
 - You can save the state of my application by clicking the "Save Current Order" button on the main menu.
 - You can reload the state of my application by clicking the "Load Saved Order" button on the main menu.
+
+## *Phase 4: Task 2*
+[Added a large taro milk tea with [boba, pudding] to this order,
+Added a small wintermelon milk tea with [pudding] to this order,
+Removed a small wintermelon milk tea with [pudding] from this order]

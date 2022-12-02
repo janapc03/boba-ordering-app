@@ -24,8 +24,16 @@ public class Order implements Writable {
     // MODIFIES: this
     // EFFECTS: adds drink to the order and increases order total
     public void addDrink(Drink drink) {
+        String size;
+        if (drink.getSize() == 1) {
+            size = "small";
+        } else {
+            size = "large";
+        }
         this.order.add(drink);
         this.orderTotal = this.orderTotal + drink.getPrice();
+        EventLog.getInstance().logEvent(new Event("Added a " + size + " " + drink.getFlavor() + " with "
+                + drink.getToppings() + " to this order"));
     }
 
     // MODIFIES: this
@@ -35,10 +43,20 @@ public class Order implements Writable {
     //             - returns true
     //           else, returns false
     public boolean removeDrink(Drink drink) {
-        if (this.order.contains(drink) && (getNumDrinks() > 1)) {
-            this.order.remove(drink);
-            this.orderTotal = this.orderTotal - drink.getPrice();
-            return true;
+        if (drink != null) {
+            String size;
+            if (drink.getSize() == 1) {
+                size = "small";
+            } else {
+                size = "large";
+            }
+            if (this.order.contains(drink) && (getNumDrinks() > 1)) {
+                this.order.remove(drink);
+                this.orderTotal = this.orderTotal - drink.getPrice();
+                EventLog.getInstance().logEvent(new Event("Removed a " + size + " " + drink.getFlavor() + " with "
+                        + drink.getToppings() + " from this order"));
+                return true;
+            }
         }
         return false;
     }
